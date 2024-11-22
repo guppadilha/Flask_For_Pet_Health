@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="container-login">
+        <h2 class="texto">ENTRAR</h2>
+        <p class="paragrafo">CUIDE DO SEU PET DA MESMA FORMA QUE ELE CUIDA DE VOCÊ!</p>
+
+        <!-- Exibindo mensagens de erro -->
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="flash {{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+        </div>
+
+        <!-- Formulário de login -->
+        <form action="{{ url_for('routes.login') }}" method="POST" id="form-login">
+            <input type="text" id="email" name="email" placeholder="E-mail" required>
+            <input type="password" id="senha" name="senha" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p class="site-cadastro">Não possui uma conta? <a href="{{ url_for('routes.register') }}">Cadastre-se</a></p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+:root {
+    --cor-bg-principal: #178ea8;
+    --cor-bg-container: #10b3d8;
+    --cor-texto: #ffb800;
+    --cor-bg-input: #ecc666;
+    --cor-bg-botao: #ecc666;
+    --cor-hover: #0056b3;
+    --cor-sombra: rgba(0, 0, 0, 0.1);
+    --cor-sombra-hover: rgba(40, 49, 128, 0.3);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--cor-bg-principal);
+    background-image: url('https://images.tcdn.com.br/img/img_prod/620948/papel_de_parede_adesivo_patas_de_cachorro_caes_gatos_pet_animais_ssan_017_1097_1_20200506081632.jpg');
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+.container-cadastro {
+    background-color: var(--cor-bg-container);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--cor-sombra);
+    padding: 40px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out; /* Animação de fadeIn */
+}
+
+.container-cadastro h2 {
+    margin-bottom: 30px;
+    color: var(--cor-texto);
+    font-size: 2em;
+    animation: slideIn 1s ease-in-out; /* Animação de slideIn */
+    -webkit-text-stroke: 1px black;
+}
+
+.paragrafo {
+    margin-bottom: 30px;
+    color: var(--cor-texto);
+    font-size: 1.3em;
+    font-weight: bold;
+    animation: slideIn 1s ease-in-out; /* Animação de slideIn */
+    -webkit-text-stroke: 0.8px rgb(0, 0, 0);
+}
+
+.container-cadastro input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1em;
+    background-color: var(--cor-bg-input);
+}
+
+.container-cadastro input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.container-cadastro button {
+    width: calc(100% - 90px);
+    padding: 17px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: var(--cor-bg-input);
+    -webkit-text-stroke: 0.4px rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 1em;
+    transition: transform 0.3s ease;
+}
+
+.container-cadastro button:hover {
+    background: linear-gradient(135deg, #fffefe, var(--cor-bg-botao));
+    transform: translateY(-3px);
+}
+
+.site-login {
+    margin-top: 20px;
+    color: #000000;
+    font-size: 0.9em;
+}
+
+.container-cadastro a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    -webkit-text-stroke: 0.4px rgb(0, 0, 0);
+}
+
+.container-cadastro a:hover {
+    text-decoration: underline;
+    color: var(--cor-hover);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.erro {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro PET</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registerPETT.css') }}">
+</head>
+<body>
+    <div class="container-cadastro">
+        <h2 class="texto">CADASTRE SEU PET</h2>
+        <form id="formulario-cadastro" method="POST" action="{{ url_for('routes.register_pet') }}">
+            <div class="erro" id="mensagem-erro">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <input type="text" id="nome" name="nome" placeholder="Nome do Pet" required aria-label="Nome do Pet">
+            <input type="number" id="idade" name="idade" placeholder="Idade (em anos)" required aria-label="Idade do Pet">
+            <input type="number" id="peso" name="peso" placeholder="Peso (em kg)" required aria-label="Peso do Pet">
+            <input type="text" id="tipo" name="tipo" placeholder="Tipo (Ex: Cão, Gato)" required aria-label="Tipo do Pet">
+            <input type="text" id="raca-genero" name="raca_genero" placeholder="Raça e Gênero (Ex.: Labrador, Macho)" required aria-label="Raça e Gênero do Pet">
+            
+            <div class="cadastro-grup">
+                <div class="cadastro-input">
+                    <button type="submit" class="botao-cadastro" id="cadastro-pet">
+                        Cadastrar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Validar os campos pode ser útil para feedback imediato, mas a lógica de back-end já cuida disso
+        document.getElementById('formulario-cadastro').addEventListener('submit', function(event) {
+            // Poderia ser implementado aqui uma validação adicional, mas o Flask já garante isso
+            // Como exemplo, você pode adicionar lógicas de manipulação de erros no frontend se necessário
+        });
+    </script>
+</body>
+</html>
