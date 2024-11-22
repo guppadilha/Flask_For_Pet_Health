@@ -1,0 +1,190 @@
+:root {
+    --cor-bg-principal: #178ea8;
+    --cor-bg-secundario: #10b3d8;
+    --cor-texto: #ffb800;
+    --cor-bg-input: #ecc666;
+    --cor-bg-botao: #ecc666;
+    --cor-hover-botao: #0056b3;
+    --cor-sombra: rgba(0, 0, 0, 0.1);
+    --cor-sombra-hover: rgba(40, 49, 128, 0.3);
+    --cor-branco: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://images.tcdn.com.br/img/img_prod/620948/papel_de_parede_adesivo_patas_de_cachorro_caes_gatos_pet_animais_ssan_017_1097_1_20200506081632.jpg');
+}
+
+.navbar {
+    background-color: var(--cor-bg-principal);
+    box-shadow: 0 4px 6px var(--cor-sombra);
+}
+
+.navbar-brand {
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.container{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px var(--cor-sombra);
+}
+
+.container.features-section{
+    margin-top: 50px;
+    box-shadow: 0 4px 6px var(--cor-sombra);
+}
+
+.navbar-brand:hover {
+    color: #f2f2f2;
+}
+
+.rowBtns {
+    display: flex;
+    justify-content: space-around;
+}
+
+.rowFeedBack {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-section {
+    background-color: var(--cor-bg-secundario);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section p {
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.btn-principal {
+    background-color: var(--cor-bg-botao);
+    color: #fff;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px var(--cor-sombra);
+    text-transform: uppercase;
+}
+
+.btn-principal:hover {
+    background-color: var(--cor-hover-botao);
+    transform: translateY(-5px);
+}
+
+.features-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.features-section .feature {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.features-section .feature h3 {
+    font-size: 1.8em;
+    color: var(--cor-bg-principal);
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.features-section .feature p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.feature .btn-acesso {
+    background-color: var(--cor-bg-botao);
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px var(--cor-sombra);
+}
+
+.feature .btn-acesso:hover {
+    background-color: var(--cor-hover-botao);
+    transform: translateY(-3px);
+}
+
+.depoimentos-section {
+    padding: 80px 0;
+}
+
+.depoimentos-section h2 {
+    text-align: center;
+    color: var(--cor-bg-principal);
+    margin-bottom: 60px;
+    font-size: 2.5em;
+}
+
+.depoimento {
+    background-color: var(--cor-branco);
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px var(--cor-sombra);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.depoimento:hover {
+    transform: scale(1.05);
+}
+
+.depoimento p {
+    font-style: italic;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.depoimento h5 {
+    text-align: right;
+    color: var(--cor-bg-secundario);
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.footer {
+    background-color: var(--cor-bg-principal);
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+    font-size: 1em;
+    margin-top: 80px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px var(--cor-sombra);
+}
+
+.carousel-item img {
+    border-radius: 50px;
+    width: 95%;
+    height: 650px;
+    object-fit: cover;
+    box-shadow: 0 4px 6px var(--cor-sombra);
+    margin-left: 2.2%;
+    margin-top: 0.5%;
+}

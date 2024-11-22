@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/initial.css') }}">
+    <title>Carteira de Vacinação PET - Início</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">For Pet Health</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('routes.welcome') }}">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExample" data-slide-to="1"></li>
+            <li data-target="#carouselExample" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://petsinstitches.com/wp-content/uploads/2018/05/iStock-879402334_super.jpg" alt="Primeiro slide">
+            </div>
+            <div class="carousel-item">
+                <img src="https://premierpet.com.br/wp-content/uploads/2020/10/banner-cao.jpg" alt="Segundo slide">
+            </div>
+            <div class="carousel-item">
+                <img src="https://wallpapershome.com/images/pages/ico_h/9317.jpg" alt="Terceiro slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+    
+    <div class="container features-section">
+        <div class="rowBtns">
+            <div class="col-md-4 feature">
+                <h3>PET'S</h3>
+                <p>Veja todos os seus PET's cadastrados em nossa plataforma.</p>
+                <a href="{{ url_for('routes.confirmation_pet') }}" class="btn-acesso">Visualizar</a>
+            </div>
+            <div class="col-md-4 feature">
+                <h3>PROTOCOLO</h3>
+                <p>Visualize o histórico e controle os tratamentos médico do seu PET.</p>
+                <a href="{{ url_for('routes.protocolo') }}" class="btn-acesso">Controle de Saúde</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="depoimentos-section">
+        <div class="container">
+            <h2>O que nossos clientes dizem</h2>
+            <div class="rowFeedBack">
+                <div class="col-md-6 depoimento">
+                    <p>"A Carteira PET facilitou muito a vida com meus dois cães. Nunca mais perdi o controle das vacinas!"</p>
+                    <h5>- João, dono da Lola e do Tom</h5>
+                </div>
+                <div class="col-md-6 depoimento">
+                    <p>"A organização dos tratamentos e lembretes é incrível. Recomendo a todos os donos de pets."</p>
+                    <h5>- Maria, dona do Thor</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 Carteira de Vacinação PET. Todos os direitos reservados.</p>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

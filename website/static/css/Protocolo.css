@@ -1,0 +1,113 @@
+:root {
+    --cor-bg-principal: #178ea8;
+    --cor-bg-container: #10b3d8;
+    --cor-texto: #ffb800;
+    --cor-bg-input: #ecc666;
+    --cor-bg-botao: #ecc666;
+    --cor-hover: #0056b3;
+    --cor-sombra: rgba(0, 0, 0, 0.1);
+    --cor-sombra-hover: rgba(40, 49, 128, 0.3);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--cor-bg-principal);
+    background-image: url('https://images.tcdn.com.br/img/img_prod/620948/papel_de_parede_adesivo_patas_de_cachorro_caes_gatos_pet_animais_ssan_017_1097_1_20200506081632.jpg');
+    background-repeat: repeat;
+    background-size: auto;
+    
+}
+
+.container {
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px var(--cor-sombra);
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.card-headerTitle {
+    padding: 10px;
+    background-color: var(--cor-bg-container);
+    color: #fff;
+    font-size: 1.25em;
+    font-weight: bold;
+    border-bottom: 0;
+}
+
+.card-body {
+    background-color: var(--cor-bg-container);;
+}
+
+.table thead th {
+    background-color: var(--cor-bg-container);
+    color: #fff;
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn-personalizado {
+    background-color: var(--cor-bg-botao);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-personalizado:hover {
+    background-color: var(--cor-hover);
+    transform: translateY(-2px);
+}
+
+.modal-header {
+    background-color: var(--cor-bg-container);
+    color: #fff;
+}
+
+/* Estilo para o botão de voltar na lateral */
+.btn-voltar {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    z-index: 999; /* Garante que o botão fique acima de outros elementos */
+}
+
+.btn-voltar:hover {
+    background-color: #0056b3;
+}
+
+/* Garantir que o botão não sobreponha o conteúdo da página */
+body {
+    margin-left: 40px; /* Adiciona um espaço na lateral esquerda para o botão */
+}
