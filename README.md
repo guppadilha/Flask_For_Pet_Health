@@ -1,7 +1,3 @@
-Got it! Here's a simpler and more concise `README.md` for your Flask application:
-
----
-
 # Flask For Pet Health
 
 For Pet Health is an academic project developed as part of our university course. It is a digital pet health wallet designed to help pet owners manage their pets' medical records, appointments, and health information in one place.
