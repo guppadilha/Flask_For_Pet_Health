@@ -1,31 +1,31 @@
 # Flask For Pet Health
 
-For Pet Health is an academic project developed as part of our university course. It is a digital pet health wallet designed to help pet owners manage their pets' medical records, appointments, and health information in one place.
+**For Pet Health** é um projeto acadêmico desenvolvido como parte do nosso curso universitário. Trata-se de uma carteira digital de saúde para pets, projetada para ajudar tutores a gerenciar os registros médicos, consultas e informações de saúde dos seus animais de estimação em um único lugar.
 
-## How to Run
+## Como Executar
 
-1. Clone the repository:
+1. Clone o repositório:
    ```bash
    git clone https://github.com/guppadilha/forpethealth.git
    cd forpethealth
    ```
 
-2. Install dependencies:
+2. Instale as dependências:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Run the app:
+3. Execute o aplicativo:
    ```bash
    python3 main.py
    ```
 
-4. Open your browser and go to:
+4. Abra seu navegador e acesse:
    ```
    http://localhost:5000/
    ```
 
 ---
 
-## License
-This project is licensed under the MIT License.
+## Licença
+Este projeto está licenciado sob a licença MIT.
