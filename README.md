@@ -7,7 +7,7 @@
 1. Clone o repositório:
    ```bash
    git clone https://github.com/guppadilha/Flask_For_Pet_Health.git
-   cd forpethealth
+   cd Flask_For_Pet_Health
    ```
 
 2. Instale as dependências:
