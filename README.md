@@ -6,7 +6,7 @@
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/guppadilha/forpethealth.git
+   git clone https://github.com/guppadilha/Flask_For_Pet_Health.git
    cd forpethealth
    ```
 
