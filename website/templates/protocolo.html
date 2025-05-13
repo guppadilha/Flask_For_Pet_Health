@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Protocolo.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo do PET</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>   
+    <div class="container">
+        <div class="container mt-3">
+            <div class="form-group">
+                <label for="selecionar-pet">Selecione o Pet:</label>
+                <div class="d-flex align-items-center">
+                    <select class="form-control" id="selecionar-pet" onchange="atualizarPetSelecionado()">
+                        <!-- As opções serão geradas dinamicamente -->
+                        <option value="">-- Selecione um Pet --</option>
+                        {% for pet in pets %}
+                            <option value="{{ pet.id }}">{{ pet.nome }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="btn btn-secondary ml-2" onclick="window.history.back()">Voltar</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <!-- Vacinas -->
+        <div class="card">
+            <div class="card-headerTitle">
+                Vacinas
+            </div>
+            <div class="card-body">
+                <table class="table" id="tabela-vacinas">
+                    <thead>
+                        <tr>
+                            <th>Nome da Vacina</th>
+                            <th>Data da Aplicação</th>
+                            <th>Próxima Dose</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de vacinas serão adicionadas aqui -->
+                    </tbody>
+                </table>
+                <button class="btn-personalizado" data-toggle="modal" data-target="#modal-vacinas">Adicionar Vacina</button>
+            </div>
+        </div>
+
+        <!-- Tratamentos -->
+        <div class="card">
+            <div class="card-headerTitle">
+                Tratamentos
+            </div>
+            <div class="card-body">
+                <table class="table" id="tabela-tratamentos">
+                    <thead>
+                        <tr>
+                            <th>Nome do Tratamento</th>
+                            <th>Data de Início</th>
+                            <th>Data de Conclusão</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de tratamentos serão adicionadas aqui -->
+                    </tbody>
+                </table>
+                <button class="btn-personalizado" data-toggle="modal" data-target="#modal-tratamentos">Adicionar Tratamento</button>
+            </div>
+        </div>
+
+        <!-- Vermífugos -->
+        <div class="card">
+            <div class="card-headerTitle">
+                Vermífugos
+            </div>
+            <div class="card-body">
+                <table class="table" id="tabela-vermicugos">
+                    <thead>
+                        <tr>
+                            <th>Nome do Vermífugo</th>
+                            <th>Data da Aplicação</th>
+                            <th>Próxima Dose</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de vermífugos serão adicionadas aqui -->
+                    </tbody>
+                </table>
+                <button class="btn-personalizado" data-toggle="modal" data-target="#modal-vermicugos">Adicionar Vermífugo</button>
+            </div>
+        </div>
+
+        <!-- Exames -->
+        <div class="card">
+            <div class="card-headerTitle">
+                Exames
+            </div>
+            <div class="card-body">
+                <table class="table" id="tabela-exames">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Exame</th>
+                            <th>Data do Exame</th>
+                            <th>Resultado</th>
+                            <th>Observações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de exames serão adicionadas aqui -->
+                    </tbody>
+                </table>
+                <button class="btn-personalizado" data-toggle="modal" data-target="#modal-exames">Adicionar Exame</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Modal para Vacinas -->
+    <div class="modal fade" id="modal-vacinas" tabindex="-1" role="dialog" aria-labelledby="modal-vacinas-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-vacinas-label">Adicionar Vacina</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-vacinas">
+                        <div class="form-group">
+                            <label for="nome-vacina">Nome da Vacina</label>
+                            <input type="text" class="form-control" id="nome-vacina" placeholder="Nome da Vacina">
+                        </div>
+                        <div class="form-group">
+                            <label for="data-aplicacao">Data da Aplicação</label>
+                            <input type="date" class="form-control" id="data-aplicacao">
+                        </div>
+                        <div class="form-group">
+                            <label for="proxima-dose">Próxima Dose</label>
+                            <input type="date" class="form-control" id="proxima-dose">
+                        </div>
+                        <div class="form-group">
+                            <label for="status-vacina">Status</label>
+                            <select class="form-control" id="status-vacina">
+                                <option>Em Dia</option>
+                                <option>Atrasado</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-personalizado" onclick="adicionarVacina()">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Tratamentos -->
+    <div class="modal fade" id="modal-tratamentos" tabindex="-1" role="dialog" aria-labelledby="modal-tratamentos-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-tratamentos-label">Adicionar Tratamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-tratamentos">
+                        <div class="form-group">
+                            <label for="nome-tratamento">Nome do Tratamento</label>
+                            <input type="text" class="form-control" id="nome-tratamento" placeholder="Nome do Tratamento">
+                        </div>
+                        <div class="form-group">
+                            <label for="data-inicio">Data de Início</label>
+                            <input type="date" class="form-control" id="data-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label for="data-conclusao">Data de Conclusão</label>
+                            <input type="date" class="form-control" id="data-conclusao">
+                        </div>
+                        <div class="form-group">
+                            <label for="status-tratamento">Status</label>
+                            <select class="form-control" id="status-tratamento">
+                                <option>Concluído</option>
+                                <option>Em Andamento</option>
+                                <option>Não Iniciado</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-personalizado" onclick="adicionarTratamento()">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Vermífugos -->
+    <div class="modal fade" id="modal-vermicugos" tabindex="-1" role="dialog" aria-labelledby="modal-vermicugos-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-vermicugos-label">Adicionar Vermífugo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-vermicugos">
+                        <div class="form-group">
+                            <label for="nome-vermicugo">Nome do Vermífugo</label>
+                            <input type="text" class="form-control" id="nome-vermicugo" placeholder="Nome do Vermífugo">
+                        </div>
+                        <div class="form-group">
+                            <label for="data-aplicacao-vermicugo">Data da Aplicação</label>
+                            <input type="date" class="form-control" id="data-aplicacao-vermicugo">
+                        </div>
+                        <div class="form-group">
+                            <label for="proxima-dose-vermicugo">Próxima Dose</label>
+                            <input type="date" class="form-control" id="proxima-dose-vermicugo">
+                        </div>
+                        <div class="form-group">
+                            <label for="status-vermicugo">Status</label>
+                            <select class="form-control" id="status-vermicugo">
+                                <option>Em Dia</option>
+                                <option>Atrasado</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-personalizado" onclick="adicionarVermifugo()">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Exames -->
+    <div class="modal fade" id="modal-exames" tabindex="-1" role="dialog" aria-labelledby="modal-exames-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-exames-label">Adicionar Exame</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-exames">
+                        <div class="form-group">
+                            <label for="tipo-exame">Tipo de Exame</label>
+                            <input type="text" class="form-control" id="tipo-exame" placeholder="Tipo de Exame">
+                        </div>
+                        <div class="form-group">
+                            <label for="data-exame">Data do Exame</label>
+                            <input type="date" class="form-control" id="data-exame">
+                        </div>
+                        <div class="form-group">
+                            <label for="resultado-exame">Resultado</label>
+                            <input type="text" class="form-control" id="resultado-exame" placeholder="Resultado do Exame">
+                        </div>
+                        <div class="form-group">
+                            <label for="observacoes-exame">Observações</label>
+                            <textarea class="form-control" id="observacoes-exame" rows="3" placeholder="Observações"></textarea>
+                        </div>
+                        <button type="button" class="btn-personalizado" onclick="adicionarExame()">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function adicionarVacina() {
+            var nome = document.getElementById('nome-vacina').value;
+            var dataAplicacao = document.getElementById('data-aplicacao').value;
+            var proximaDose = document.getElementById('proxima-dose').value;
+            var status = document.getElementById('status-vacina').value;
+
+            var tabela = document.getElementById('tabela-vacinas').getElementsByTagName('tbody')[0];
+            var novaLinha = tabela.insertRow();
+
+            novaLinha.insertCell(0).innerText = nome;
+            novaLinha.insertCell(1).innerText = dataAplicacao;
+            novaLinha.insertCell(2).innerText = proximaDose;
+            novaLinha.insertCell(3).innerText = status;
+
+            $('#modal-vacinas').modal('hide');
+            document.getElementById('form-vacinas').reset();
+        }
+
+        function adicionarTratamento() {
+            var nome = document.getElementById('nome-tratamento').value;
+            var dataInicio = document.getElementById('data-inicio').value;
+            var dataConclusao = document.getElementById('data-conclusao').value;
+            var status = document.getElementById('status-tratamento').value;
+
+            var tabela = document.getElementById('tabela-tratamentos').getElementsByTagName('tbody')[0];
+            var novaLinha = tabela.insertRow();
+
+            novaLinha.insertCell(0).innerText = nome;
+            novaLinha.insertCell(1).innerText = dataInicio;
+            novaLinha.insertCell(2).innerText = dataConclusao;
+            novaLinha.insertCell(3).innerText = status;
+
+            $('#modal-tratamentos').modal('hide');
+            document.getElementById('form-tratamentos').reset();
+        }
+
+        function adicionarVermifugo() {
+            var nome = document.getElementById('nome-vermicugo').value;
+            var dataAplicacao = document.getElementById('data-aplicacao-vermicugo').value;
+            var proximaDose = document.getElementById('proxima-dose-vermicugo').value;
+            var status = document.getElementById('status-vermicugo').value;
+
+            var tabela = document.getElementById('tabela-vermicugos').getElementsByTagName('tbody')[0];
+            var novaLinha = tabela.insertRow();
+
+            novaLinha.insertCell(0).innerText = nome;
+            novaLinha.insertCell(1).innerText = dataAplicacao;
+            novaLinha.insertCell(2).innerText = proximaDose;
+            novaLinha.insertCell(3).innerText = status;
+
+            $('#modal-vermicugos').modal('hide');
+            document.getElementById('form-vermicugos').reset();
+        }
+
+        function adicionarExame() {
+            var tipo = document.getElementById('tipo-exame').value;
+            var dataExame = document.getElementById('data-exame').value;
+            var resultado = document.getElementById('resultado-exame').value;
+            var observacoes = document.getElementById('observacoes-exame').value;
+
+            var tabela = document.getElementById('tabela-exames').getElementsByTagName('tbody')[0];
+            var novaLinha = tabela.insertRow();
+
+            novaLinha.insertCell(0).innerText = tipo;
+            novaLinha.insertCell(1).innerText = dataExame;
+            novaLinha.insertCell(2).innerText = resultado;
+            novaLinha.insertCell(3).innerText = observacoes;
+
+            $('#modal-exames').modal('hide');
+            document.getElementById('form-exames').reset();
+        }
+    </script>
+    
+</body>
+</html>
