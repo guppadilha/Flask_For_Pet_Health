@@ -50,12 +50,10 @@
         <div class="mt-3">
             <a href="{{ url_for('routes.register_pet') }}" class="btn btn-primary">Cadastrar Novo Pet</a>
         </div>
-
-        <!-- Botão de Voltar -->
-        <div class="mt-3">
-            <a href="{{ url_for('routes.initial') }}" class="btn btn-secondary">Voltar</a>
-        </div>
-    </div>
+        <div class="mt-3 d-flex justify-content-start">
+          <a href="{{ url_for('routes.initial') }}" class="btn btn-info mr-2">Voltar para Início</a>
+          <a href="{{ url_for("routes.protocolo") }}" class="btn btn-secondary">Ir para Protocolo</a>
+        </div>    </div>
 
     <!-- Scripts do Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
