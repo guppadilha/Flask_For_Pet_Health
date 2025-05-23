@@ -1,18 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para a Saúde do Pet</title>
+    <title>For Pet Health - Carteira de Vacinação Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
 </head>
 <body>
-    <div class="container-introducao">
-        <h1>BEM-VINDO AO PET FOR HEALTH: CARTEIRA DE VACINAÇÃO ONLINE PARA O SEU PET</h1>
-        <p>Estamos aqui para ajudar você a cuidar do seu PET com amor e dedicação.</p>
-        <p>Entre agora na sua conta ou crie uma nova para começar!</p>
-        <a href="{{ url_for('routes.login') }}">Login</a>
-        <a href="{{ url_for('routes.register') }}">Cadastre-se</a>
+    <div class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="logo">
+                    <i class="fas fa-paw pet-icon"></i>
+                    <h1 class="logo-text">For Pet Health</h1>
+                </div>
+                <h2 class="hero-title">Carteira de Vacinação Online para o seu Pet</h2>
+                <p class="hero-subtitle">Estamos aqui para ajudar você a cuidar do seu pet com amor e dedicação. Mantenha o histórico de saúde do seu amigo de quatro patas sempre atualizado e acessível.</p>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='images/vet_dog.webp') }}" alt="Veterinário cuidando de um cachorro" class="img-fluid img-rounded">
+                </div>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('routes.login') }}" class="btn btn-primary slide-in-up">Entrar</a>
+                    <a href="{{ url_for('routes.register') }}" class="btn btn-secondary slide-in-up">Cadastre-se</a>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="features">
+        <div class="container">
+            <h2 class="section-title">Por que escolher o For Pet Health?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="feature-title">Controle de Vacinas</h3>
+                    <p class="feature-description">Acompanhe todas as vacinas do seu pet, com datas de aplicação e lembretes para as próximas doses.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="feature-title">Histórico Médico</h3>
+                    <p class="feature-description">Registre consultas, tratamentos, exames e medicamentos em um só lugar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Acesso Fácil</h3>
+                    <p class="feature-description">Acesse as informações do seu pet a qualquer momento, em qualquer lugar, de qualquer dispositivo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Comece a cuidar melhor do seu pet hoje mesmo!</h2>
+                <p>Cadastre-se gratuitamente e tenha acesso a todas as funcionalidades.</p>
+                <a href="{{ url_for('routes.register') }}" class="btn btn-primary">Criar Conta</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>For Pet Health</h3>
+                    <p>Cuidando da saúde do seu pet com amor e tecnologia.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('routes.login') }}">Login</a></li>
+                        <li><a href="{{ url_for('routes.register') }}">Cadastro</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contato@forpethealth.com</li>
+                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 For Pet Health. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

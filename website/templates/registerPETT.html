@@ -3,44 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro PET</title>
+    <title>Cadastro de Pet - For Pet Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registerPETT.css') }}">
 </head>
 <body>
-    <div class="container-cadastro">
-        <h2 class="texto">CADASTRE SEU PET</h2>
-        <form id="formulario-cadastro" method="POST" action="{{ url_for('routes.register_pet') }}">
-            <div class="erro" id="mensagem-erro">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="{{ category }}">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            </div>
-            <input type="text" id="nome" name="nome" placeholder="Nome do Pet" required aria-label="Nome do Pet">
-            <input type="number" id="idade" name="idade" placeholder="Idade (em anos)" required aria-label="Idade do Pet">
-            <input type="number" id="peso" name="peso" placeholder="Peso (em kg)" required aria-label="Peso do Pet">
-            <input type="text" id="tipo" name="tipo" placeholder="Tipo (Ex: Cão, Gato)" required aria-label="Tipo do Pet">
-            <input type="text" id="raca-genero" name="raca_genero" placeholder="Raça e Gênero (Ex.: Labrador, Macho)" required aria-label="Raça e Gênero do Pet">
-            
-            <div class="cadastro-grup">
-                <div class="cadastro-input">
-                    <button type="submit" class="botao-cadastro" id="cadastro-pet">
-                        Cadastrar
-                    </button>
+    <div class="pet-register-container">
+        <div class="header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="logo">
+                        <i class="fas fa-paw pet-icon"></i>
+                        <h1 class="logo-text">For Pet Health</h1>
+                    </div>
+                    <nav>
+                        <ul class="nav-menu">
+                            <li class="nav-item"><a href="{{ url_for('routes.initial') }}" class="nav-link">Início</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.confirmation_pet') }}" class="nav-link">Meus Pets</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.protocolo') }}" class="nav-link">Protocolos</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-        </form>
+        </div>
+
+        <div class="main-content">
+            <div class="container">
+                <div class="pet-register-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Cadastrar Novo Pet</h2>
+                        <p class="card-subtitle">Preencha as informações do seu amiguinho</p>
+                    </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="{{ url_for('routes.register_pet') }}" class="pet-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome" class="form-label">Nome do Pet</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-tag"></i>
+                                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome do seu pet" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="idade" class="form-label">Idade</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    <input type="text" id="idade" name="idade" class="form-control" placeholder="Idade do seu pet" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="peso" class="form-label">Peso (kg)</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-weight"></i>
+                                    <input type="text" id="peso" name="peso" class="form-control" placeholder="Peso em kg" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo" class="form-label">Tipo de Animal</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-paw"></i>
+                                    <select id="tipo" name="tipo" class="form-control" required>
+                                        <option value="" disabled selected>Selecione o tipo</option>
+                                        <option value="Cachorro">Cachorro</option>
+                                        <option value="Gato">Gato</option>
+                                        <option value="Ave">Ave</option>
+                                        <option value="Roedor">Roedor</option>
+                                        <option value="Réptil">Réptil</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="raca_genero" class="form-label">Raça e Gênero</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-info-circle"></i>
+                                <input type="text" id="raca_genero" name="raca_genero" class="form-control" placeholder="Ex: Labrador, Macho" required>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Cadastrar Pet</button>
+                            <a href="{{ url_for('routes.initial') }}" class="btn btn-outline">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="pet-register-image">
+                    <img src="{{ url_for('static', filename='images/vet_dog_exam.jpeg') }}" alt="Veterinário examinando um cachorro" class="img-fluid img-rounded">
+                    <div class="image-caption">
+                        <p>Mantenha os dados do seu pet atualizados para um melhor acompanhamento veterinário.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>For Pet Health</h3>
+                        <p>Cuidando da saúde do seu pet com amor e tecnologia.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Links Rápidos</h3>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('routes.initial') }}">Início</a></li>
+                            <li><a href="{{ url_for('routes.confirmation_pet') }}">Meus Pets</a></li>
+                            <li><a href="{{ url_for('routes.protocolo') }}">Protocolos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contato</h3>
+                        <ul class="footer-links">
+                            <li><i class="fas fa-envelope"></i> contato@forpethealth.com</li>
+                            <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 For Pet Health. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <script>
-        // Validar os campos pode ser útil para feedback imediato, mas a lógica de back-end já cuida disso
-        document.getElementById('formulario-cadastro').addEventListener('submit', function(event) {
-            // Poderia ser implementado aqui uma validação adicional, mas o Flask já garante isso
-            // Como exemplo, você pode adicionar lógicas de manipulação de erros no frontend se necessário
-        });
-    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
