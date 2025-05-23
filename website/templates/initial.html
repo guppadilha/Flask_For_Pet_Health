@@ -3,89 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - For Pet Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/initial.css') }}">
-    <title>Carteira de Vacinação PET - Início</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">For Pet Health</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('routes.welcome') }}">Sair</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    
-    <div id="carouselExample" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExample" data-slide-to="1"></li>
-            <li data-target="#carouselExample" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://petsinstitches.com/wp-content/uploads/2018/05/iStock-879402334_super.jpg" alt="Primeiro slide">
-            </div>
-            <div class="carousel-item">
-                <img src="https://premierpet.com.br/wp-content/uploads/2020/10/banner-cao.jpg" alt="Segundo slide">
-            </div>
-            <div class="carousel-item">
-                <img src="https://wallpapershome.com/images/pages/ico_h/9317.jpg" alt="Terceiro slide">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Anterior</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Próximo</span>
-        </a>
-    </div>
-    
-    <div class="container features-section">
-        <div class="rowBtns">
-            <div class="col-md-4 feature">
-                <h3>PET'S</h3>
-                <p>Veja todos os seus PET's cadastrados em nossa plataforma.</p>
-                <a href="{{ url_for('routes.confirmation_pet') }}" class="btn-acesso">Visualizar</a>
-            </div>
-            <div class="col-md-4 feature">
-                <h3>CARTEIRA PET</h3>
-                <p>Visualize o histórico e controle os tratamentos médico do seu PET.</p>
-                <a href="{{ url_for('routes.protocolo') }}" class="btn-acesso">Controle de Saúde</a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="depoimentos-section">
-        <div class="container">
-            <h2>O que nossos clientes dizem</h2>
-            <div class="rowFeedBack">
-                <div class="col-md-6 depoimento">
-                    <p>"A Carteira PET facilitou muito a vida com meus dois cães. Nunca mais perdi o controle das vacinas!"</p>
-                    <h5>- João, dono da Lola e do Tom</h5>
-                </div>
-                <div class="col-md-6 depoimento">
-                    <p>"A organização dos tratamentos e lembretes é incrível. Recomendo a todos os donos de pets."</p>
-                    <h5>- Maria, dona do Thor</h5>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="logo">
+                        <i class="fas fa-paw pet-icon"></i>
+                        <h1 class="logo-text">For Pet Health</h1>
+                    </div>
+                    <nav>
+                        <ul class="nav-menu">
+                            <li class="nav-item"><a href="{{ url_for('routes.initial') }}" class="nav-link active">Início</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.confirmation_pet') }}" class="nav-link">Meus Pets</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.protocolo') }}" class="nav-link">Protocolos</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.login') }}" class="nav-link">Sair</a></li>
+                        </ul>
+                    </nav>
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
+
+        <div class="hero-dashboard">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title fade-in">Bem-vindo ao For Pet Health</h2>
+                    <p class="hero-subtitle fade-in">Gerencie a saúde do seu pet de forma simples e eficiente</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="container">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card slide-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <h3 class="card-title">Cadastrar Pet</h3>
+                        <p class="card-description">Adicione um novo pet à sua conta para começar a gerenciar sua saúde.</p>
+                        <a href="{{ url_for('routes.register_pet') }}" class="btn btn-primary">Cadastrar</a>
+                    </div>
+
+                    <div class="dashboard-card slide-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-list-alt"></i>
+                        </div>
+                        <h3 class="card-title">Meus Pets</h3>
+                        <p class="card-description">Visualize e gerencie todos os seus pets cadastrados.</p>
+                        <a href="{{ url_for('routes.confirmation_pet') }}" class="btn btn-primary">Ver Pets</a>
+                    </div>
+
+                    <div class="dashboard-card slide-in-up">
+                        <div class="card-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3 class="card-title">Protocolos de Saúde</h3>
+                        <p class="card-description">Acompanhe vacinas, tratamentos, vermífugos e exames.</p>
+                        <a href="{{ url_for('routes.protocolo') }}" class="btn btn-primary">Ver Protocolos</a>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-card">
+                        <h3 class="info-title">Por que manter os registros de saúde do seu pet?</h3>
+                        <div class="info-content">
+                            <p>Manter um registro atualizado da saúde do seu pet é essencial para garantir que ele receba os cuidados adequados ao longo de sua vida. Isso inclui:</p>
+                            <ul>
+                                <li>Acompanhamento de vacinas e reforços</li>
+                                <li>Controle de medicamentos e tratamentos</li>
+                                <li>Histórico de exames e resultados</li>
+                                <li>Prevenção contra parasitas</li>
+                            </ul>
+                            <p>Com o For Pet Health, você tem todas essas informações organizadas e acessíveis a qualquer momento!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>For Pet Health</h3>
+                        <p>Cuidando da saúde do seu pet com amor e tecnologia.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Links Rápidos</h3>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('routes.initial') }}">Início</a></li>
+                            <li><a href="{{ url_for('routes.confirmation_pet') }}">Meus Pets</a></li>
+                            <li><a href="{{ url_for('routes.protocolo') }}">Protocolos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contato</h3>
+                        <ul class="footer-links">
+                            <li><i class="fas fa-envelope"></i> contato@forpethealth.com</li>
+                            <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 For Pet Health. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
     </div>
-    
-    <div class="footer">
-        <p>&copy; 2024 Carteira de Vacinação PET. Todos os direitos reservados.</p>
-    </div>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

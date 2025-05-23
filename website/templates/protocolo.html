@@ -1,336 +1,471 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Protocolo.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo do PET</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Protocolo de Saúde - For Pet Health</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Protocolo.css') }}">
 </head>
 <body>
-    <div class="container">
-        <!-- Flash messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+    <div class="protocolo-container">
+        <div class="header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="logo">
+                        <i class="fas fa-paw pet-icon"></i>
+                        <h1 class="logo-text">For Pet Health</h1>
+                    </div>
+                    <nav>
+                        <ul class="nav-menu">
+                            <li class="nav-item"><a href="{{ url_for('routes.initial') }}" class="nav-link">Início</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.confirmation_pet') }}" class="nav-link">Meus Pets</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.protocolo') }}" class="nav-link active">Protocolos</a></li>
+                            <li class="nav-item"><a href="{{ url_for('routes.login') }}" class="nav-link">Sair</a></li>
+                        </ul>
+                    </nav>
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title fade-in">Protocolo de Saúde</h2>
+                    <p class="hero-subtitle fade-in">Acompanhe e gerencie a saúde do seu pet</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="protocolo-header">
+                    <div class="pet-selector">
+                        <h3 class="section-title">Selecione um Pet</h3>
+                        <div class="pet-selector-grid">
+                            {% for pet in pets %}
+                                <div class="pet-selector-card {% if pet.id == active_pet_id %}active{% endif %}" onclick="switchPet({{ pet.id }})">
+                                    <div class="pet-icon">
+                                        {% if pet.tipo == 'Cachorro' %}
+                                            <i class="fas fa-dog"></i>
+                                        {% elif pet.tipo == 'Gato' %}
+                                            <i class="fas fa-cat"></i>
+                                        {% elif pet.tipo == 'Ave' %}
+                                            <i class="fas fa-dove"></i>
+                                        {% elif pet.tipo == 'Roedor' %}
+                                            <i class="fas fa-rabbit"></i>
+                                        {% elif pet.tipo == 'Réptil' %}
+                                            <i class="fas fa-dragon"></i>
+                                        {% else %}
+                                            <i class="fas fa-paw"></i>
+                                        {% endif %}
+                                    </div>
+                                    <h4 class="pet-name">{{ pet.nome }}</h4>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if selected_pet %}
+                <div class="pet-info-banner">
+                    <div class="pet-info-content">
+                        <div class="pet-info-icon">
+                            {% if selected_pet.tipo == 'Cachorro' %}
+                                <i class="fas fa-dog"></i>
+                            {% elif selected_pet.tipo == 'Gato' %}
+                                <i class="fas fa-cat"></i>
+                            {% elif selected_pet.tipo == 'Ave' %}
+                                <i class="fas fa-dove"></i>
+                            {% elif selected_pet.tipo == 'Roedor' %}
+                                <i class="fas fa-rabbit"></i>
+                            {% elif selected_pet.tipo == 'Réptil' %}
+                                <i class="fas fa-dragon"></i>
+                            {% else %}
+                                <i class="fas fa-paw"></i>
+                            {% endif %}
+                        </div>
+                        <div class="pet-info-details">
+                            <h3 class="pet-info-name">{{ selected_pet.nome }}</h3>
+                            <div class="pet-info-stats">
+                                <span class="pet-info-stat">{{ selected_pet.tipo }}</span>
+                                <span class="pet-info-stat">{{ selected_pet.idade }}</span>
+                                <span class="pet-info-stat">{{ selected_pet.peso }} kg</span>
+                                <span class="pet-info-stat">{{ selected_pet.raca_genero }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <div class="tab-item active" onclick="openTab(event, 'tab-vacinas')">
+                        <i class="fas fa-syringe"></i> Vacinas
+                    </div>
+                    <div class="tab-item" onclick="openTab(event, 'tab-tratamentos')">
+                        <i class="fas fa-pills"></i> Tratamentos
+                    </div>
+                    <div class="tab-item" onclick="openTab(event, 'tab-vermifugos')">
+                        <i class="fas fa-bug"></i> Vermífugos
+                    </div>
+                    <div class="tab-item" onclick="openTab(event, 'tab-exames')">
+                        <i class="fas fa-microscope"></i> Exames
+                    </div>
+                </div>
+
+                <div id="tab-vacinas" class="tab-content active">
+                    <div class="tab-header">
+                        <h3 class="tab-title">Vacinas</h3>
+                        <button class="btn btn-primary" onclick="openModal('modal-vacina')">
+                            <i class="fas fa-plus"></i> Adicionar Vacina
                         </button>
                     </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
-        <div class="container mt-3">
-            <div class="form-group">
-                <label for="selecionar-pet">Selecione o Pet:</label>
-                <div class="d-flex align-items-center">
-                    <select class="form-control" id="selecionar-pet" onchange="atualizarPetSelecionado()">
-                        <option value="">-- Selecione um Pet --</option>
-                        {% for pet in pets %}
-                            <option value="{{ pet.id }}" {% if pet.id == active_pet_id %}selected{% endif %}>{{ pet.nome }}</option>
-                        {% endfor %}
-                    </select>
-                    <!-- Botões de navegação -->
-                    <a href="{{ url_for('routes.initial') }}" class="btn btn-info ml-2">Voltar para Início</a>
-                    <a href="{{ url_for('routes.confirmation_pet') }}" class="btn btn-secondary ml-2">Ver Pets</a>
-                    <a href="{{ url_for('routes.logout') }}" class="btn btn-danger ml-2">Logout</a>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Vacina</th>
+                                    <th>Data de Aplicação</th>
+                                    <th>Próxima Dose</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vacina in vacinas %}
+                                <tr>
+                                    <td>{{ vacina.nome_vacina }}</td>
+                                    <td>{{ vacina.data_aplicacao.strftime('%d/%m/%Y') if vacina.data_aplicacao else 'Não informado' }}</td>
+                                    <td>{{ vacina.proxima_dose.strftime('%d/%m/%Y') if vacina.proxima_dose else 'Não informado' }}</td>
+                                    <td><span class="badge badge-{{ 'success' if vacina.status == 'Completo' else 'warning' }}">{{ vacina.status }}</span></td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">Nenhuma vacina registrada</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-tratamentos" class="tab-content">
+                    <div class="tab-header">
+                        <h3 class="tab-title">Tratamentos</h3>
+                        <button class="btn btn-primary" onclick="openModal('modal-tratamento')">
+                            <i class="fas fa-plus"></i> Adicionar Tratamento
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tratamento</th>
+                                    <th>Data de Início</th>
+                                    <th>Data de Conclusão</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tratamento in tratamentos %}
+                                <tr>
+                                    <td>{{ tratamento.nome_tratamento }}</td>
+                                    <td>{{ tratamento.data_inicio.strftime('%d/%m/%Y') if tratamento.data_inicio else 'Não informado' }}</td>
+                                    <td>{{ tratamento.data_conclusao.strftime('%d/%m/%Y') if tratamento.data_conclusao else 'Não informado' }}</td>
+                                    <td><span class="badge badge-{{ 'success' if tratamento.status == 'Completo' else 'warning' }}">{{ tratamento.status }}</span></td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">Nenhum tratamento registrado</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-vermifugos" class="tab-content">
+                    <div class="tab-header">
+                        <h3 class="tab-title">Vermífugos</h3>
+                        <button class="btn btn-primary" onclick="openModal('modal-vermifugo')">
+                            <i class="fas fa-plus"></i> Adicionar Vermífugo
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Vermífugo</th>
+                                    <th>Data de Aplicação</th>
+                                    <th>Próxima Dose</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vermifugo in vermifugos %}
+                                <tr>
+                                    <td>{{ vermifugo.nome_vermifugo }}</td>
+                                    <td>{{ vermifugo.data_aplicacao.strftime('%d/%m/%Y') if vermifugo.data_aplicacao else 'Não informado' }}</td>
+                                    <td>{{ vermifugo.proxima_dose.strftime('%d/%m/%Y') if vermifugo.proxima_dose else 'Não informado' }}</td>
+                                    <td><span class="badge badge-{{ 'success' if vermifugo.status == 'Completo' else 'warning' }}">{{ vermifugo.status }}</span></td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">Nenhum vermífugo registrado</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-exames" class="tab-content">
+                    <div class="tab-header">
+                        <h3 class="tab-title">Exames</h3>
+                        <button class="btn btn-primary" onclick="openModal('modal-exame')">
+                            <i class="fas fa-plus"></i> Adicionar Exame
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Exame</th>
+                                    <th>Data do Exame</th>
+                                    <th>Resultado</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exame in exames %}
+                                <tr>
+                                    <td>{{ exame.tipo_exame }}</td>
+                                    <td>{{ exame.data_exame.strftime('%d/%m/%Y') if exame.data_exame else 'Não informado' }}</td>
+                                    <td>{{ exame.resultado }}</td>
+                                    <td>{{ exame.observacoes }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">Nenhum exame registrado</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% else %}
+                <div class="no-pet-selected">
+                    <div class="no-pet-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3>Nenhum pet selecionado</h3>
+                    <p>Selecione um pet para visualizar e gerenciar seus protocolos de saúde.</p>
+                    <a href="{{ url_for('routes.register_pet') }}" class="btn btn-primary">Cadastrar Novo Pet</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Modais para adicionar registros -->
+        <div id="modal-vacina" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Adicionar Vacina</h3>
+                        <button class="modal-close" onclick="closeModal('modal-vacina')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('routes.adicionar_vacina', pet_id=selected_pet.id if selected_pet else 0) }}">
+                            <div class="form-group">
+                                <label for="nome_vacina" class="form-label">Nome da Vacina</label>
+                                <input type="text" id="nome_vacina" name="nome_vacina" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_aplicacao" class="form-label">Data de Aplicação</label>
+                                <input type="date" id="data_aplicacao" name="data_aplicacao" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="proxima_dose" class="form-label">Próxima Dose</label>
+                                <input type="date" id="proxima_dose" name="proxima_dose" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="status_vacina" class="form-label">Status</label>
+                                <select id="status_vacina" name="status_vacina" class="form-control" required>
+                                    <option value="Pendente">Pendente</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Completo">Completo</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" onclick="closeModal('modal-vacina')">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
-        {% if selected_pet %}
-            <h2 class="mt-4">Protocolo de {{ selected_pet.nome }}</h2>
-
-            <!-- Vacinas -->
-            <div class="card mt-3">
-                <div class="card-headerTitle">Vacinas</div>
-                <div class="card-body">
-                    <table class="table" id="tabela-vacinas">
-                        <thead>
-                            <tr>
-                                <th>Nome da Vacina</th>
-                                <th>Data da Aplicação</th>
-                                <th>Próxima Dose</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for vacina in vacinas %}
-                            <tr>
-                                <td>{{ vacina.nome_vacina }}</td>
-                                <td>{{ vacina.data_aplicacao.strftime('%d/%m/%Y') if vacina.data_aplicacao else '' }}</td>
-                                <td>{{ vacina.proxima_dose.strftime('%d/%m/%Y') if vacina.proxima_dose else '' }}</td>
-                                <td>{{ vacina.status }}</td>
-                            </tr>
-                            {% else %}
-                            <tr><td colspan="4">Nenhuma vacina registrada.</td></tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <button class="btn-personalizado" data-toggle="modal" data-target="#modal-vacinas">Adicionar Vacina</button>
-                </div>
-            </div>
-
-            <!-- Tratamentos -->
-            <div class="card mt-3">
-                <div class="card-headerTitle">Tratamentos</div>
-                <div class="card-body">
-                    <table class="table" id="tabela-tratamentos">
-                        <thead>
-                            <tr>
-                                <th>Nome do Tratamento</th>
-                                <th>Data de Início</th>
-                                <th>Data de Conclusão</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for tratamento in tratamentos %}
-                            <tr>
-                                <td>{{ tratamento.nome_tratamento }}</td>
-                                <td>{{ tratamento.data_inicio.strftime('%d/%m/%Y') if tratamento.data_inicio else '' }}</td>
-                                <td>{{ tratamento.data_conclusao.strftime('%d/%m/%Y') if tratamento.data_conclusao else '' }}</td>
-                                <td>{{ tratamento.status }}</td>
-                            </tr>
-                            {% else %}
-                            <tr><td colspan="4">Nenhum tratamento registrado.</td></tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <button class="btn-personalizado" data-toggle="modal" data-target="#modal-tratamentos">Adicionar Tratamento</button>
-                </div>
-            </div>
-
-            <!-- Vermífugos -->
-            <div class="card mt-3">
-                <div class="card-headerTitle">Vermífugos</div>
-                <div class="card-body">
-                    <table class="table" id="tabela-vermifugos">
-                        <thead>
-                            <tr>
-                                <th>Nome do Vermífugo</th>
-                                <th>Data da Aplicação</th>
-                                <th>Próxima Dose</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for vermifugo in vermifugos %}
-                            <tr>
-                                <td>{{ vermifugo.nome_vermifugo }}</td>
-                                <td>{{ vermifugo.data_aplicacao.strftime('%d/%m/%Y') if vermifugo.data_aplicacao else '' }}</td>
-                                <td>{{ vermifugo.proxima_dose.strftime('%d/%m/%Y') if vermifugo.proxima_dose else '' }}</td>
-                                <td>{{ vermifugo.status }}</td>
-                            </tr>
-                            {% else %}
-                            <tr><td colspan="4">Nenhum vermífugo registrado.</td></tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <button class="btn-personalizado" data-toggle="modal" data-target="#modal-vermifugos">Adicionar Vermífugo</button>
-                </div>
-            </div>
-
-            <!-- Exames -->
-            <div class="card mt-3">
-                <div class="card-headerTitle">Exames</div>
-                <div class="card-body">
-                    <table class="table" id="tabela-exames">
-                        <thead>
-                            <tr>
-                                <th>Tipo de Exame</th>
-                                <th>Data do Exame</th>
-                                <th>Resultado</th>
-                                <th>Observações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for exame in exames %}
-                            <tr>
-                                <td>{{ exame.tipo_exame }}</td>
-                                <td>{{ exame.data_exame.strftime('%d/%m/%Y') if exame.data_exame else '' }}</td>
-                                <td>{{ exame.resultado }}</td>
-                                <td>{{ exame.observacoes }}</td>
-                            </tr>
-                            {% else %}
-                            <tr><td colspan="4">Nenhum exame registrado.</td></tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <button class="btn-personalizado" data-toggle="modal" data-target="#modal-exames">Adicionar Exame</button>
-                </div>
-            </div>
-
-        {% elif pets %}
-             <div class="alert alert-info mt-4">Selecione um PET para ver seu protocolo.</div>
-        {% else %}
-            <div class="alert alert-warning mt-4">
-                Você não tem nenhum PET cadastrado. 
-                <a href="{{ url_for('routes.register_pet') }}">Cadastre um PET aqui</a>.
-            </div>
-        {% endif %}
-    </div>
-
-    <!-- Modal para Vacinas -->
-    {% if active_pet_id %}
-    <div class="modal fade" id="modal-vacinas" tabindex="-1" role="dialog" aria-labelledby="modal-vacinas-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-vacinas-label">Adicionar Vacina</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ url_for('routes.adicionar_vacina', pet_id=active_pet_id) }}">
-                        <div class="form-group">
-                            <label for="nome-vacina">Nome da Vacina</label>
-                            <input type="text" class="form-control" id="nome-vacina" name="nome_vacina" placeholder="Nome da Vacina" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="data-aplicacao-vacina">Data da Aplicação</label>
-                            <input type="date" class="form-control" id="data-aplicacao-vacina" name="data_aplicacao" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="proxima-dose-vacina">Próxima Dose</label>
-                            <input type="date" class="form-control" id="proxima-dose-vacina" name="proxima_dose">
-                        </div>
-                        <div class="form-group">
-                            <label for="status-vacina">Status</label>
-                            <select class="form-control" id="status-vacina" name="status_vacina" required>
-                                <option>Em Dia</option>
-                                <option>Atrasado</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-personalizado">Salvar</button>
-                    </form>
+        <div id="modal-tratamento" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Adicionar Tratamento</h3>
+                        <button class="modal-close" onclick="closeModal('modal-tratamento')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('routes.adicionar_tratamento', pet_id=selected_pet.id if selected_pet else 0) }}">
+                            <div class="form-group">
+                                <label for="nome_tratamento" class="form-label">Nome do Tratamento</label>
+                                <input type="text" id="nome_tratamento" name="nome_tratamento" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_inicio" class="form-label">Data de Início</label>
+                                <input type="date" id="data_inicio" name="data_inicio" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_conclusao" class="form-label">Data de Conclusão</label>
+                                <input type="date" id="data_conclusao" name="data_conclusao" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="status_tratamento" class="form-label">Status</label>
+                                <select id="status_tratamento" name="status_tratamento" class="form-control" required>
+                                    <option value="Pendente">Pendente</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Completo">Completo</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" onclick="closeModal('modal-tratamento')">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal para Tratamentos -->
-    <div class="modal fade" id="modal-tratamentos" tabindex="-1" role="dialog" aria-labelledby="modal-tratamentos-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-tratamentos-label">Adicionar Tratamento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ url_for('routes.adicionar_tratamento', pet_id=active_pet_id) }}">
-                        <div class="form-group">
-                            <label for="nome-tratamento">Nome do Tratamento</label>
-                            <input type="text" class="form-control" id="nome-tratamento" name="nome_tratamento" placeholder="Nome do Tratamento" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="data-inicio-tratamento">Data de Início</label>
-                            <input type="date" class="form-control" id="data-inicio-tratamento" name="data_inicio" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="data-conclusao-tratamento">Data de Conclusão</label>
-                            <input type="date" class="form-control" id="data-conclusao-tratamento" name="data_conclusao">
-                        </div>
-                        <div class="form-group">
-                            <label for="status-tratamento">Status</label>
-                            <select class="form-control" id="status-tratamento" name="status_tratamento" required>
-                                <option>Concluído</option>
-                                <option>Em Andamento</option>
-                                <option>Não Iniciado</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-personalizado">Salvar</button>
-                    </form>
+        <div id="modal-vermifugo" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Adicionar Vermífugo</h3>
+                        <button class="modal-close" onclick="closeModal('modal-vermifugo')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('routes.adicionar_vermifugo', pet_id=selected_pet.id if selected_pet else 0) }}">
+                            <div class="form-group">
+                                <label for="nome_vermifugo" class="form-label">Nome do Vermífugo</label>
+                                <input type="text" id="nome_vermifugo" name="nome_vermifugo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_aplicacao" class="form-label">Data de Aplicação</label>
+                                <input type="date" id="data_aplicacao" name="data_aplicacao" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="proxima_dose" class="form-label">Próxima Dose</label>
+                                <input type="date" id="proxima_dose" name="proxima_dose" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="status_vermifugo" class="form-label">Status</label>
+                                <select id="status_vermifugo" name="status_vermifugo" class="form-control" required>
+                                    <option value="Pendente">Pendente</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Completo">Completo</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" onclick="closeModal('modal-vermifugo')">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal para Vermífugos -->
-    <div class="modal fade" id="modal-vermifugos" tabindex="-1" role="dialog" aria-labelledby="modal-vermifugos-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-vermifugos-label">Adicionar Vermífugo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ url_for('routes.adicionar_vermifugo', pet_id=active_pet_id) }}">
-                        <div class="form-group">
-                            <label for="nome-vermifugo">Nome do Vermífugo</label>
-                            <input type="text" class="form-control" id="nome-vermifugo" name="nome_vermifugo" placeholder="Nome do Vermífugo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="data-aplicacao-vermifugo">Data da Aplicação</label>
-                            <input type="date" class="form-control" id="data-aplicacao-vermifugo" name="data_aplicacao_vermifugo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="proxima-dose-vermifugo">Próxima Dose</label>
-                            <input type="date" class="form-control" id="proxima-dose-vermifugo" name="proxima_dose_vermifugo">
-                        </div>
-                        <div class="form-group">
-                            <label for="status-vermifugo">Status</label>
-                            <select class="form-control" id="status-vermifugo" name="status_vermifugo" required>
-                                <option>Em Dia</option>
-                                <option>Atrasado</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-personalizado">Salvar</button>
-                    </form>
+        <div id="modal-exame" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Adicionar Exame</h3>
+                        <button class="modal-close" onclick="closeModal('modal-exame')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('routes.adicionar_exame', pet_id=selected_pet.id if selected_pet else 0) }}">
+                            <div class="form-group">
+                                <label for="tipo_exame" class="form-label">Tipo de Exame</label>
+                                <input type="text" id="tipo_exame" name="tipo_exame" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_exame" class="form-label">Data do Exame</label>
+                                <input type="date" id="data_exame" name="data_exame" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resultado" class="form-label">Resultado</label>
+                                <input type="text" id="resultado" name="resultado" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="observacoes" class="form-label">Observações</label>
+                                <textarea id="observacoes" name="observacoes" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" onclick="closeModal('modal-exame')">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal para Exames -->
-    <div class="modal fade" id="modal-exames" tabindex="-1" role="dialog" aria-labelledby="modal-exames-label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-exames-label">Adicionar Exame</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>For Pet Health</h3>
+                        <p>Cuidando da saúde do seu pet com amor e tecnologia.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Links Rápidos</h3>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('routes.initial') }}">Início</a></li>
+                            <li><a href="{{ url_for('routes.confirmation_pet') }}">Meus Pets</a></li>
+                            <li><a href="{{ url_for('routes.protocolo') }}">Protocolos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contato</h3>
+                        <ul class="footer-links">
+                            <li><i class="fas fa-envelope"></i> contato@forpethealth.com</li>
+                            <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ url_for('routes.adicionar_exame', pet_id=active_pet_id) }}">
-                        <div class="form-group">
-                            <label for="tipo-exame">Tipo de Exame</label>
-                            <input type="text" class="form-control" id="tipo-exame" name="tipo_exame" placeholder="Tipo de Exame" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="data-exame">Data do Exame</label>
-                            <input type="date" class="form-control" id="data-exame" name="data_exame" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="resultado-exame">Resultado</label>
-                            <textarea class="form-control" id="resultado-exame" name="resultado_exame" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="observacoes-exame">Observações</label>
-                            <textarea class="form-control" id="observacoes-exame" name="observacoes_exame" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn-personalizado">Salvar</button>
-                    </form>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 For Pet Health. Todos os direitos reservados.</p>
                 </div>
             </div>
-        </div>
+        </footer>
     </div>
-    {% endif %}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function atualizarPetSelecionado() {
-            var petId = document.getElementById("selecionar-pet").value;
-            if (petId) {
-                window.location.href = "/protocolo/" + petId;
-            } else {
-                window.location.href = "/protocolo"; // Ou para uma página padrão se nenhum pet for selecionado
-            }
-        }
-    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
-
