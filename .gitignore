@@ -1,5 +1,6 @@
 # Ignorar a pasta do ambiente virtual
 venv/
+instance/
 
 # Ignorar arquivos de cache do Python
 __pycache__/
